@@ -1,3 +1,5 @@
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyNO4ASvWdge6Eut1y18htITpbhSBpXdni5bCicnix3ekh00DTogJtNxhKLfIhUeBJdZg/exec";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import {
     getAuth,
@@ -150,33 +152,55 @@ form.addEventListener("submit", async (e) => {
 
     }
 
-    await addDoc(
+   await addDoc(fetch(GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        name,
+        relation,
+        wish
+    })
+});
 
-        collection(
-            db,
-            "artifacts",
-            APP_ID,
-            "public",
-            "data",
-            "wishes"
-        ),
 
-        {
+    collection(
+        db,
+        "artifacts",
+        APP_ID,
+        "public",
+        "data",
+        "wishes"
+    ),
 
-            name,
-            relation,
-            wish,
-            side,
+    {
+        name,
+        relation,
+        wish,
+        side,
+        uid: currentUser.uid,
+        timestamp: serverTimestamp()
+    }
 
-            uid: currentUser.uid,
+);
 
-            timestamp: serverTimestamp()
+// Отправка в Google Таблицу
+fetch("https://script.google.com/macros/s/AKfycbyNO4ASvWdge6Eut1y18htITpbhSBpXdni5bCicnix3ekh00DTogJtNxhKLfIhUeBJdZg/exec", {
+    method: "POST",
+    redirect: "follow",
+    headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify({
+        name: name,
+        relation: relation,
+        wish: wish
+    })
+}).catch(err => console.log(err));
 
-        }
-
-    );
-
-    form.reset();
+form.reset();
 
 });
 // =====================================
