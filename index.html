@@ -1,572 +1,828 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Арлан & Алина — Интерактивная Книга Пожеланий</title>
-    <!-- Tailwind CSS для стильного и современного адаптивного дизайна -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Премиальные свадебные шрифты -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Иконки FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #0d120e;
-            overflow-x: hidden;
-        }
-        
-        .serif-font {
-            font-family: 'Lora', serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* Адаптивный фоновый рисунок (ваше свадебное фото) */
-        .bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background-image: url('5361726092047228207.jpg');
-            background-size: cover;
-            background-position: center center;
-            filter: brightness(0.35) contrast(1.1);
-            animation: slowPan 30s infinite alternate ease-in-out;
-        }
+<title>Арлан & Динара</title>
 
-        @keyframes slowPan {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
-        }
+<script src="https://cdn.tailwindcss.com"></script>
 
-        /* Градиентное затемнение для идеального контраста текста */
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(to bottom, rgba(13, 18, 14, 0.4) 0%, rgba(13, 18, 14, 0.9) 100%);
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        /* Эффект Glassmorphism (матовое стекло) */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        /* Кастомный фокус полей ввода в стиле теплого золота */
-        .custom-input {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 
-        .custom-input:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #d9b36d;
-            box-shadow: 0 0 15px rgba(217, 179, 109, 0.25);
-            outline: none;
-        }
+<style>
 
-        /* Стилизация баттл-бара "толкающихся" сил */
-        .battle-bar-container {
-            position: relative;
-            height: 52px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 26px;
-            overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.6);
-        }
+:root{
+--gold:#d4af37;
+--gold-light:#f5deb3;
+--red:#ff3b3b;
+--blue:#4da3ff;
+--glass:rgba(255,255,255,.08);
+}
 
-        .line-red {
-            background: linear-gradient(90deg, #881337, #dc2626);
-            height: 100%;
-            transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 0 25px rgba(220, 38, 38, 0.5);
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-        .line-blue {
-            background: linear-gradient(90deg, #2563eb, #1e3a8a);
-            height: 100%;
-            transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 0 25px rgba(37, 99, 219, 0.5);
-        }
+html{
+scroll-behavior:smooth;
+}
 
-        /* Энергетический разделитель (точка столкновения сил) */
-        .clash-divider {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 8px;
-            background: #ffffff;
-            box-shadow: 0 0 20px 6px #ffffff, 0 0 35px 12px #d9b36d;
-            z-index: 10;
-            transform: translateX(-50%);
-            transition: left 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            animation: sparkShatter 0.15s infinite alternate ease-in-out;
-        }
+body{
+font-family:'Montserrat',sans-serif;
+background:#000;
+color:white;
+overflow-x:hidden;
+min-height:100vh;
+}
 
-        @keyframes sparkShatter {
-            0% { transform: translateX(-50%) scaleY(1) skewX(-1.5deg); filter: brightness(1.1); }
-            100% { transform: translateX(-50%) scaleY(1.08) skewX(1.5deg); filter: brightness(1.6); }
-        }
+.hero-bg{
+position:fixed;
+inset:0;
+z-index:-3;
 
-        /* Кастомный тонкий скролл для ленты пожеланий */
-        .custom-scroll::-webkit-scrollbar {
-            width: 5px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.01);
-            border-radius: 10px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 10px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-    </style>
+background-image:url('photo.jpg');
+background-size:cover;
+background-position:center center;
+
+animation:zoomBg 30s ease-in-out infinite alternate;
+}
+
+@keyframes zoomBg{
+from{
+transform:scale(1);
+}
+to{
+transform:scale(1.12);
+}
+}
+
+.overlay{
+position:fixed;
+inset:0;
+z-index:-2;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,.2),
+rgba(0,0,0,.8)
+);
+}
+
+.gold-glow{
+position:fixed;
+inset:0;
+z-index:-1;
+
+background:
+radial-gradient(
+circle at center,
+rgba(212,175,55,.15),
+transparent 70%
+);
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top:320px;
+    text-align:center;
+}
+.hero-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.hero-subtitle{
+    position:absolute;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    letter-spacing:10px;
+    text-transform:uppercase;
+    font-size:14px;
+    color:#d4af37;
+    z-index:10;
+
+}
+
+.hero-title{
+font-family:'Cormorant Garamond',serif;
+font-size:clamp(60px,10vw,120px);
+font-weight:700;
+line-height:1;
+color:white;
+margin-bottom:20px;
+}
+
+.hero-divider{
+width:160px;
+height:1px;
+background:linear-gradient(
+90deg,
+transparent,
+var(--gold),
+transparent
+);
+
+margin:15px auto;
+}
+
+.hero-text{
+    margin-top:10px;
+    font-size:24px;
+    line-height:1.8;
+    color:#f5f5f5;
+    max-width:760px;
+    text-shadow:0 4px 20px rgba(0,0,0,.5);
+}
+
+.glass{
+background:rgba(255,255,255,.04);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 10px 40px rgba(0,0,0,.4);
+}
+
+.section{
+max-width:1200px;
+margin:auto;
+padding:50px 20px;
+}
+
+.form-card{
+border-radius:30px;
+padding:40px;
+}
+
+.section-title{
+font-family:'Cormorant Garamond',serif;
+font-size:48px;
+text-align:center;
+margin-bottom:30px;
+color:white;
+}
+
+.input{
+width:100%;
+padding:16px 20px;
+
+border-radius:16px;
+
+border:1px solid rgba(255,255,255,.15);
+
+background:rgba(255,255,255,.05);
+
+color:white;
+
+transition:.3s;
+}
+
+.input:focus{
+outline:none;
+border-color:var(--gold);
+box-shadow:0 0 20px rgba(212,175,55,.3);
+}
+
+.btn-send{
+width:100%;
+padding:18px;
+
+border:none;
+
+border-radius:18px;
+
+font-weight:700;
+
+background:linear-gradient(
+135deg,
+#d4af37,
+#f5deb3
+);
+
+color:black;
+
+cursor:pointer;
+
+transition:.3s;
+}
+
+.btn-send:hover{
+transform:translateY(-2px);
+}
+
+.battle-section{
+margin-top:60px;
+}
+
+.battle-title{
+font-family:'Cormorant Garamond',serif;
+font-size:42px;
+text-align:center;
+margin-bottom:10px;
+}
+
+.battle-subtitle{
+text-align:center;
+color:#aaa;
+margin-bottom:40px;
+}
+
+.battle-wrapper{
+position:relative;
+height:180px;
+overflow:hidden;
+border-radius:30px;
+}
+
+.team-red{
+position:absolute;
+left:0;
+top:0;
+bottom:0;
+width:50%;
+
+background:
+linear-gradient(
+90deg,
+rgba(255,0,0,.45),
+rgba(255,0,0,.15)
+);
+
+transition:all 1s cubic-bezier(.34,1.56,.64,1);
+}
+
+.team-blue{
+position:absolute;
+right:0;
+top:0;
+bottom:0;
+width:50%;
+
+background:
+linear-gradient(
+90deg,
+rgba(0,100,255,.15),
+rgba(0,100,255,.45)
+);
+
+transition:all 1s cubic-bezier(.34,1.56,.64,1);
+}
+
+.clash-line{
+position:absolute;
+
+left:50%;
+
+top:0;
+bottom:0;
+
+width:8px;
+
+background:white;
+
+transform:translateX(-50%);
+
+box-shadow:
+0 0 20px white,
+0 0 50px white,
+0 0 80px var(--gold);
+
+transition:all 1s cubic-bezier(.34,1.56,.64,1);
+}
+
+.red-particles,
+.blue-particles{
+position:absolute;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+}
+
+.stats{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+.stat{
+text-align:center;
+width:45%;
+}
+
+.percent{
+font-size:48px;
+font-weight:900;
+}
+
+.red{
+color:#ff4d4d;
+}
+
+.blue{
+color:#66b2ff;
+}
+
+.wall{
+margin-top:60px;
+border-radius:30px;
+padding:30px;
+}
+
+.wall-title{
+font-family:'Cormorant Garamond',serif;
+font-size:36px;
+margin-bottom:20px;
+text-align:center;
+}
+
+#wishes-wall{
+display:flex;
+flex-direction:column;
+gap:15px;
+max-height:600px;
+overflow-y:auto;
+}
+/* ================= БИТВА ================= */
+
+.battle-section{
+    margin-top:80px;
+}
+
+.battle-title{
+    text-align:center;
+    font-size:42px;
+    color:#fff;
+    margin-bottom:10px;
+}
+
+.battle-subtitle{
+    text-align:center;
+    color:#bbb;
+    margin-bottom:35px;
+}
+
+.battle-wrapper{
+
+    position:relative;
+
+    overflow:hidden;
+
+    height:90px;
+
+    border-radius:50px;
+
+    background:#111;
+
+}
+
+.team-red{
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    width:50%;
+
+    background:linear-gradient(90deg,#8b0000,#ff4040);
+
+    transition:width .8s ease;
+
+    box-shadow:0 0 40px rgba(255,0,0,.6);
+
+}
+
+.team-blue{
+
+    position:absolute;
+
+    right:0;
+
+    top:0;
+
+    bottom:0;
+
+    width:50%;
+
+    background:linear-gradient(90deg,#3399ff,#003cff);
+
+    transition:width .8s ease;
+
+    box-shadow:0 0 40px rgba(0,120,255,.6);
+
+}
+
+.clash-line{
+
+    position:absolute;
+
+    top:0;
+
+    bottom:0;
+
+    left:50%;
+
+    width:8px;
+
+    transform:translateX(-50%);
+
+    background:white;
+
+    box-shadow:
+
+        0 0 20px white,
+
+        0 0 50px white,
+
+        0 0 100px white;
+
+    z-index:10;
+
+}
+
+.red-particles,
+.blue-particles{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+}
+
+.stats{
+
+    margin-top:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+}
+
+.stat{
+
+    flex:1;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+.percent{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+}
+
+.red{
+
+    color:#ff5a5a;
+
+}
+
+.blue{
+
+    color:#5aa8ff;
+
+}
+
+/* ================= ЭНЕРГИЯ ================= */
+
+.team-red::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        repeating-linear-gradient(
+            45deg,
+            rgba(255,255,255,.12) 0px,
+            rgba(255,255,255,.12) 12px,
+            transparent 12px,
+            transparent 24px
+        );
+
+    animation:redFlow 1.2s linear infinite;
+}
+
+.team-blue::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            rgba(255,255,255,.12) 0px,
+            rgba(255,255,255,.12) 12px,
+            transparent 12px,
+            transparent 24px
+        );
+
+    animation:blueFlow 1.2s linear infinite;
+}
+
+@keyframes redFlow{
+
+from{
+
+background-position:0 0;
+
+}
+
+to{
+
+background-position:120px 0;
+
+}
+
+}
+
+@keyframes blueFlow{
+
+from{
+
+background-position:0 0;
+
+}
+
+to{
+
+background-position:-120px 0;
+
+}
+
+}
+
+.clash-line{
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+
+box-shadow:
+0 0 10px white,
+0 0 20px white;
+
+}
+
+50%{
+
+box-shadow:
+0 0 30px white,
+0 0 90px #ffd700;
+
+}
+
+100%{
+
+box-shadow:
+0 0 10px white,
+0 0 20px white;
+
+}
+
+}
+</style>
 </head>
-<body class="text-gray-100 min-h-screen pb-16">
 
-    <!-- Фоновые слои -->
-    <div class="bg-container"></div>
-    <div class="bg-overlay"></div>
+<body>
 
-    <div class="max-w-4xl mx-auto px-4 pt-10">
-        
-        <!-- Шапка сайта -->
-        <header class="text-center mb-12 mt-4">
-            <h1 class="serif-font text-5xl md:text-6xl font-bold text-amber-100 tracking-wide mb-3">Арлан & Алина</h1>
-            <p class="text-amber-400 font-light tracking-widest text-xs md:text-sm uppercase">Интерактивная книга пожеланий • Real-time</p>
-        </header>
+<div class="hero-bg"></div>
+<div class="overlay"></div>
+<div class="gold-glow"></div>
 
-        <!-- Основной контент -->
-        <main class="grid grid-cols-1 gap-8">
-            
-            <!-- Форма для тостов и пожеланий -->
-            <section class="glass-panel rounded-3xl p-6 md:p-8">
-                <h2 class="serif-font text-2xl md:text-3xl font-semibold text-center text-amber-100 mb-6 border-b border-white/5 pb-4">
-                    Оставьте свое поздравление
-                </h2>
-                
-                <form id="toast-form" class="space-y-6">
-                    
-                    <!-- 1. ФИО -->
-                    <div>
-                        <label for="guest-name" class="block text-xs font-semibold tracking-wider uppercase text-amber-400 mb-2">
-                            <i class="fa-solid fa-user mr-2"></i>Ваше имя и фамилия (ФИО)
-                        </label>
-                        <input 
-                            type="text" 
-                            id="guest-name" 
-                            required 
-                            placeholder="Например: Марат Ибраев" 
-                            class="custom-input w-full px-4 py-3.5 rounded-xl text-white placeholder-gray-500"
-                        >
-                    </div>
+<section class="hero">
 
-                    <!-- 2. Кем приходится (С кодовым словом) -->
-                    <div>
-                        <label for="guest-relation" class="block text-xs font-semibold tracking-wider uppercase text-amber-400 mb-2">
-                            <i class="fa-solid fa-people-group mr-2"></i>Кем приходитесь молодоженам?
-                        </label>
-                        <input 
-                            type="text" 
-                            id="guest-relation" 
-                            required 
-                            placeholder="Например: Друг Арлана / Сестра Невесты" 
-                            class="custom-input w-full px-4 py-3.5 rounded-xl text-white placeholder-gray-500"
-                        >
-                        <p class="text-[11px] text-gray-400 mt-2 italic">
-                            💡 Напишите слово <b class="text-red-400">"Арлан"</b>, чтобы ваш голос улетел в Красную команду жениха!
-                        </p>
-                    </div>
+<div class="hero-content">
 
-                    <!-- 3. Пожелания -->
-                    <div>
-                        <label for="guest-wish" class="block text-xs font-semibold tracking-wider uppercase text-amber-400 mb-2">
-                            <i class="fa-solid fa-envelope-open-text mr-2"></i>Пожелания и напутствия
-                        </label>
-                        <textarea 
-                            id="guest-wish" 
-                            rows="4" 
-                            required 
-                            placeholder="Дорогие молодожены, желаем вам..." 
-                            class="custom-input w-full px-4 py-3.5 rounded-xl text-white placeholder-gray-500"
-                        ></textarea>
-                    </div>
+<div class="hero-subtitle">
+Интерактивная книга пожеланий
+</div>
 
-                    <!-- Кнопка отправки -->
-                    <div class="text-center pt-2">
-                        <button 
-                            type="submit" 
-                            id="submit-btn"
-                            disabled
-                            class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 disabled:from-gray-700 disabled:to-gray-800 disabled:text-gray-500 disabled:cursor-not-allowed text-gray-950 font-bold py-4 rounded-xl shadow-lg shadow-amber-500/10 transition duration-300 transform active:scale-[0.98] uppercase tracking-wider text-xs md:text-sm"
-                        >
-                            Подключение к базе... <i class="fa-solid fa-spinner animate-spin ml-2"></i>
-                        </button>
-                    </div>
-                </form>
-            </section>
+<h1 class="hero-title">
+Арлан & Динара
+</h1>
 
-            <!-- Битва пожеланий (Толкающиеся анимированные полосы) -->
-            <section class="glass-panel rounded-3xl p-6 md:p-8 space-y-6">
-                <div class="text-center">
-                    <h3 class="serif-font text-2xl font-semibold text-amber-100">Интерактивный Баттл</h3>
-                    <p class="text-xs text-gray-400 mt-1.5">Линии толкаются в реальном времени в зависимости от ваших пожеланий!</p>
-                </div>
+<div class="hero-divider"></div>
 
-                <div class="relative mt-8">
-                    <!-- Баттл-Бар -->
-                    <div class="battle-bar-container flex">
-                        <div id="red-team-bar" class="line-red" style="width: 50%;"></div>
-                        <div id="blue-team-bar" class="line-blue" style="width: 50%;"></div>
-                        <div id="clash-point" class="clash-divider" style="left: 50%;"></div>
-                    </div>
-                    
-                    <!-- Маркеры и результаты по краям -->
-                    <div class="flex justify-between items-start mt-5">
-                        <!-- Команда Жениха (Арлан) -->
-                        <div class="text-left">
-                            <span class="inline-flex items-center gap-1.5 bg-red-950/40 px-3 py-1 rounded-full border border-red-500/20">
-                                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
-                                <span class="text-[10px] font-bold text-red-300 uppercase tracking-widest">Команда Арлана</span>
-                            </span>
-                            <div class="text-3xl font-black text-red-500 mt-1" id="red-percent">50%</div>
-                            <div class="text-xs text-gray-400" id="red-count">Пожеланий: 0</div>
-                        </div>
+<p class="hero-text">
+Дорогие гости, оставьте своё поздравление,
+поддержите сторону жениха или невесты
+и наблюдайте за живой битвой в реальном времени.
+</p>
 
-                        <!-- Маркер сражения VS -->
-                        <div class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full border border-amber-500/20 font-black text-xs tracking-wider">
-                            VS
-                        </div>
+</div>
 
-                        <!-- Команда Невесты -->
-                        <div class="text-right">
-                            <span class="inline-flex items-center gap-1.5 bg-blue-950/40 px-3 py-1 rounded-full border border-blue-500/20">
-                                <span class="text-[10px] font-bold text-blue-300 uppercase tracking-widest">Команда Невесты</span>
-                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
-                            </span>
-                            <div class="text-3xl font-black text-blue-400 mt-1" id="blue-percent">50%</div>
-                            <div class="text-xs text-gray-400" id="blue-count">Пожеланий: 0</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+</section>
 
-            <!-- Лента пожеланий LIVE -->
-            <section class="glass-panel rounded-3xl p-6 md:p-8">
-                <h3 class="serif-font text-xl font-semibold text-amber-100 mb-4 flex items-center justify-between">
-                    <span>Стена праздничных поздравлений</span>
-                    <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full font-bold tracking-widest animate-pulse border border-emerald-500/20">
-                        ● ОБНОВЛЯЕТСЯ LIVE
-                    </span>
-                </h3>
-                <div id="wishes-wall" class="custom-scroll space-y-4 max-h-[380px] overflow-y-auto pr-2">
-                    <div class="text-center py-8 text-gray-500" id="no-wishes-placeholder">
-                        <i class="fa-solid fa-heart-crack text-3xl mb-3 block"></i>
-                        Пожеланий пока нет. Будьте первыми!
-                    </div>
-                </div>
-            </section>
+<main class="section">
+<!-- ================= ФОРМА ================= -->
 
-        </main>
-    </div>
+<section class="glass form-card">
 
-    <!-- Всплывающий Тост (Уведомление) -->
-    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-500 ease-out pointer-events-none">
-        <div class="bg-gray-950/95 border border-amber-500 text-gray-100 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 max-w-sm backdrop-blur-md">
-            <div class="p-2.5 bg-amber-500/15 rounded-full text-amber-400 text-lg">
-                <i class="fa-solid fa-bell"></i>
-            </div>
-            <div>
-                <h4 class="font-bold text-sm text-amber-300">Новый тост принят!</h4>
-                <p class="text-xs text-gray-300 mt-0.5" id="toast-notify-text">Спасибо за ваше участие в интерактивной битве!</p>
-            </div>
-        </div>
-    </div>
+<h2 class="section-title">
+Оставьте своё поздравление
+</h2>
 
-    <!-- Firebase SDK v11.6.1 через ES-модули -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+<form id="toast-form">
 
-        // ==========================================
-        // НАСТРОЙКИ ВАШЕГО ПРОЕКТА FIREBASE
-        // ==========================================
-        // Замените этот объект конфигурации на ваши личные ключи из панели Firebase.
-        let firebaseConfig = {
-            apiKey: "", 
-            authDomain: "YOUR-PROJECT.firebaseapp.com",
-            projectId: "YOUR-PROJECT",
-            storageBucket: "YOUR-PROJECT.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
-        };
-        // ==========================================
+<div style="margin-bottom:20px;">
 
-        // Автоматический перехват настроек окружения
-        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-            try {
-                firebaseConfig = JSON.parse(__firebase_config);
-            } catch (e) {
-                console.error("Ошибка парсинга системных настроек Firebase:", e);
-            }
-        }
+<label>Ваше имя</label>
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'wedding-arlan-alina';
+<input
+id="guest-name"
+class="input"
+type="text"
+placeholder="Например: Марат Ибраев"
+required>
 
-        // Инициализация сервисов
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+</div>
 
-        let user = null;
-        let wishes = [];
+<div style="margin-bottom:20px;">
 
-        // Авторизация пользователя (Сначала анонимная аутентификация по Правилу 3)
-        const initAuth = async () => {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (error) {
-                console.error("Ошибка при инициализации входа:", error);
-                showToastNotification("Ошибка соединения. Включен локальный демо-режим.");
-                enableDemoMode();
-            }
-        };
+<label>Кем приходитесь?</label>
 
-        // Подписка на изменение статуса авторизации
-        onAuthStateChanged(auth, (loggedUser) => {
-            user = loggedUser;
-            if (user) {
-                console.log("Успешная авторизация пользователя:", user.uid);
-                const submitBtn = document.getElementById('submit-btn');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Отправить поздравление <i class="fa-solid fa-heart ml-2"></i>';
-                
-                // Слушаем коллекцию только после авторизации
-                subscribeToWishes();
-            }
-        });
+<input
+id="guest-relation"
+class="input"
+type="text"
+placeholder="Например: Друг Арлана"
+required>
 
-        initAuth();
+<small style="color:#999;">
+Если написать
+<b>Арлан</b>,
+<b>жених</b>
+или
+<b>друг жениха</b>,
+голос автоматически уйдет стороне жениха.
 
-        // Real-time слушатель базы Firestore (Правило 1 и Правило 2)
-        function subscribeToWishes() {
-            if (!user) return;
+Если написать
+<b>Динара</b>,
+<b>невеста</b>,
+<b>подруга невесты</b>,
+голос уйдет стороне невесты.
+</small>
 
-            // Строгое соблюдение структуры папок Firebase по Правилу 1
-            const wishesCollection = collection(db, 'artifacts', appId, 'public', 'data', 'wishes');
+</div>
 
-            onSnapshot(wishesCollection, (snapshot) => {
-                const fetchedWishes = [];
-                snapshot.forEach((doc) => {
-                    fetchedWishes.push({ id: doc.id, ...doc.data() });
-                });
+<div style="margin-bottom:20px;">
 
-                // Сортировка документов в памяти устройства (согласно Правилу 2 - без индексации в БД)
-                fetchedWishes.sort((a, b) => {
-                    const timeA = a.timestamp?.seconds || 0;
-                    const timeB = b.timestamp?.seconds || 0;
-                    return timeB - timeA; // Сначала новые
-                });
+<label>Ваше пожелание</label>
 
-                wishes = fetchedWishes;
-                renderWishes();
-                updateBattleBar();
-            }, (error) => {
-                console.error("Ошибка чтения Firebase Firestore:", error);
-                showToastNotification("Потеряна связь с сервером. Попробуйте обновить.");
-            });
-        }
+<textarea
 
-        // Отправка нового пожелания
-        async function submitToast(event) {
-            event.preventDefault();
-            if (!user) {
-                showToastNotification("Пожалуйста, подождите подключения к базе...");
-                return;
-            }
+id="guest-wish"
 
-            const nameInput = document.getElementById('guest-name');
-            const relationInput = document.getElementById('guest-relation');
-            const wishInput = document.getElementById('guest-wish');
+class="input"
 
-            const name = nameInput.value.trim();
-            const relation = relationInput.value.trim();
-            const wish = wishInput.value.trim();
+rows="6"
 
-            if (!name || !relation || !wish) return;
+placeholder="Желаем счастья..."
 
-            // Определение стороны: ищем подстроку "Арлан" (в любом регистре)
-            const containsArlan = relation.toLowerCase().includes('арлан');
-            const side = containsArlan ? 'red' : 'blue';
+required
 
-            // Путь к Firestore-коллекции (Правило 1)
-            const wishesCollection = collection(db, 'artifacts', appId, 'public', 'data', 'wishes');
+></textarea>
 
-            try {
-                await addDoc(wishesCollection, {
-                    name: name,
-                    relation: relation,
-                    wish: wish,
-                    side: side,
-                    userId: user.uid, // Полный ID
-                    timestamp: serverTimestamp()
-                });
+</div>
 
-                // Очистка формы
-                nameInput.value = '';
-                relationInput.value = '';
-                wishInput.value = '';
+<button
 
-                const teamName = side === 'red' ? 'Арлана' : 'Невесты';
-                showToastNotification(`${name}, ваш тост за команду ${teamName} успешно принят!`);
-            } catch (error) {
-                console.error("Ошибка при добавлении документа:", error);
-                showToastNotification("Ошибка отправки! Данные сохранены локально.");
-                saveLocallyFallback(name, relation, wish, side);
-            }
-        }
+id="submit-btn"
 
-        document.getElementById('toast-form').addEventListener('submit', submitToast);
+class="btn-send"
 
-        // Отрисовка ленты на сайте
-        function renderWishes() {
-            const container = document.getElementById('wishes-wall');
-            const placeholder = document.getElementById('no-wishes-placeholder');
+type="submit"
 
-            if (wishes.length === 0) {
-                if (placeholder) placeholder.style.display = 'block';
-                return;
-            }
+>
 
-            if (placeholder) placeholder.style.display = 'none';
-            container.innerHTML = '';
+Отправить поздравление
 
-            wishes.forEach(item => {
-                const isRed = item.side === 'red';
-                const borderColor = isRed ? 'border-red-500/20 bg-red-950/5' : 'border-blue-500/20 bg-blue-950/5';
-                const badgeColor = isRed ? 'bg-red-500/10 text-red-300 border-red-500/20' : 'bg-blue-500/10 text-blue-300 border-blue-500/20';
-                const sideText = isRed ? 'Команда Арлана' : 'Команда Невесты';
+</button>
 
-                const card = document.createElement('div');
-                card.className = `p-5 rounded-2xl border ${borderColor} transition-all duration-500 flex flex-col gap-2`;
-                
-                let timeStr = "Только что";
-                if (item.timestamp && item.timestamp.seconds) {
-                    const date = new Date(item.timestamp.seconds * 1000);
-                    timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                }
+</form>
 
-                card.innerHTML = `
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                        <div>
-                            <span class="font-bold text-base text-gray-100">${escapeHtml(item.name)}</span>
-                            <span class="text-xs text-gray-400 block md:inline md:ml-2">(${escapeHtml(item.relation)})</span>
-                        </div>
-                        <span class="text-[9px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full border ${badgeColor}">
-                            ${sideText}
-                        </span>
-                    </div>
-                    <p class="text-sm text-gray-300 italic leading-relaxed">"${escapeHtml(item.wish)}"</p>
-                    <div class="flex justify-between items-center mt-1">
-                        <span class="text-[8px] text-gray-600">UID: ${escapeHtml(item.userId || 'Guest')}</span>
-                        <span class="text-[9px] text-gray-500">${timeStr}</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
+</section>
 
-        // Обновление толкающихся линий на базе живых данных
-        function updateBattleBar() {
-            const redCount = wishes.filter(w => w.side === 'red').length;
-            const blueCount = wishes.filter(w => w.side === 'blue').length;
-            const total = redCount + blueCount;
 
-            let redPercent = 50;
-            let bluePercent = 50;
 
-            if (total > 0) {
-                redPercent = Math.round((redCount / total) * 100);
-                bluePercent = 100 - redPercent;
-            }
 
-            // Толкание линий и разделителя
-            document.getElementById('red-team-bar').style.width = `${redPercent}%`;
-            document.getElementById('blue-team-bar').style.width = `${bluePercent}%`;
-            document.getElementById('clash-point').style.left = `${redPercent}%`;
 
-            // Тексты процентов
-            document.getElementById('red-percent').innerText = `${redPercent}%`;
-            document.getElementById('blue-percent').innerText = `${bluePercent}%`;
-            document.getElementById('red-count').innerText = `Пожеланий: ${redCount}`;
-            document.getElementById('blue-count').innerText = `Пожеланий: ${blueCount}`;
-        }
+<!-- ================= БИТВА ================= -->
 
-        // Защита ввода от HTML инъекций
-        function escapeHtml(text) {
-            return text
-                ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")
-                : '';
-        }
 
-        // Всплывающее уведомление
-        function showToastNotification(message) {
-            const notification = document.getElementById('toast-notification');
-            document.getElementById('toast-notify-text').innerText = message;
-            
-            notification.classList.remove('translate-y-20', 'opacity-0');
-            notification.classList.add('translate-y-0', 'opacity-100');
 
-            setTimeout(() => {
-                notification.classList.remove('translate-y-0', 'opacity-100');
-                notification.classList.add('translate-y-20', 'opacity-0');
-            }, 4500);
-        }
 
-        // Резервный локальный демо-режим, если Firebase не инициализирован
-        function enableDemoMode() {
-            const submitBtn = document.getElementById('submit-btn');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Отправить (Демо-режим) <i class="fa-solid fa-heart ml-2"></i>';
-            updateBattleBar();
-        }
 
-        function saveLocallyFallback(name, relation, wish, side) {
-            const fallbackWish = {
-                id: Date.now(),
-                name: name,
-                relation: relation,
-                wish: wish,
-                side: side,
-                userId: "local-user",
-                timestamp: { seconds: Math.floor(Date.now() / 1000) }
-            };
-            wishes.unshift(fallbackWish);
-            renderWishes();
-            updateBattleBar();
-        }
-    </script>
+
+<!-- ================= СТЕНА ПОЖЕЛАНИЙ ================= -->
+
+<section
+
+class="glass wall"
+
+>
+
+<h2
+
+class="wall-title"
+
+>
+
+Поздравления гостей
+
+</h2>
+
+<div
+
+id="wishes-wall"
+
+>
+
+<div
+
+style="text-align:center;color:#777;padding:50px;"
+
+>
+
+Пока поздравлений нет
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- ================= УВЕДОМЛЕНИЕ ================= -->
+
+<div
+
+id="toast"
+
+style="
+
+position:fixed;
+
+right:30px;
+
+bottom:30px;
+
+background:#111;
+
+padding:20px;
+
+border-radius:20px;
+
+display:none;
+
+z-index:1000;
+
+box-shadow:0 0 30px rgba(0,0,0,.4);
+
+"
+
+>
+
+Спасибо за поздравление ❤️
+
+</div>
+
+<script type="module" src="script.js"></script>
 </body>
 </html>
