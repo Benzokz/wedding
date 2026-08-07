@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbz4j7NQ-288IMgDDBtVxcjOUX0RUUB2XyYqC3Jmc5UPzyqwA4-tcWCE6JNCVTo7NEi9/exec";
+  "https://script.google.com/macros/s/AKfycbxoexiGvU8UnXAXYL62QxozxZHM2pYisBEL1qoHQG4FUWtaVz0_iJxi4eWONRHLclI/exec";
 
 const form = document.getElementById("toast-form");
 const toast = document.getElementById("toast");
@@ -17,32 +17,18 @@ form.addEventListener("submit", function (e) {
   submitBtn.disabled = true;
   submitBtn.textContent = "Отправка...";
 
-  // Создаем динамическую скрытую форму для отправки без CORS
-  const iframeName = "hidden_iframe_" + Date.now();
-  const iframe = document.createElement("iframe");
-  iframe.name = iframeName;
-  iframe.style.display = "none";
-  document.body.appendChild(iframe);
+  // Формируем параметры для GET-запроса через URL
+  const params = new URLSearchParams({
+    name: name,
+    relation: relation,
+    wish: wish
+  });
 
-  const hiddenForm = document.createElement("form");
-  hiddenForm.method = "POST";
-  hiddenForm.action = GOOGLE_SCRIPT_URL;
-  hiddenForm.target = iframeName;
+  // Отправляем запрос с помощью скрытого изображения (гарантированно работает на всех телефонах)
+  const img = new Image();
+  img.src = `${GOOGLE_SCRIPT_URL}?${params.toString()}`;
 
-  // Добавляем поля
-  const data = { name, relation, wish };
-  for (const key in data) {
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = key;
-    input.value = data[key];
-    hiddenForm.appendChild(input);
-  }
-
-  document.body.appendChild(hiddenForm);
-  hiddenForm.submit();
-
-  // Показываем сообщение об успехе через 1 секунду
+  // Показываем плашку об успехе
   setTimeout(() => {
     if (toast) {
       toast.style.display = "block";
@@ -53,9 +39,5 @@ form.addEventListener("submit", function (e) {
     form.reset();
     submitBtn.disabled = false;
     submitBtn.textContent = "Отправить поздравление";
-
-    // Удаляем временные элементы
-    document.body.removeChild(hiddenForm);
-    document.body.removeChild(iframe);
-  }, 1000);
+  }, 800);
 });
