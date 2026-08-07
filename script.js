@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyNO4ASvWdge6Eut1y18htITpbhSBpXdni5bCicnix3ekh00DTogJtNxhKLfIhUeBJdZg/exec";
+  "https://script.google.com/macros/s/AKfycbz4j7NQ-288IMgDDBtVxcjOUX0RUUB2XyYqC3Jmc5UPzyqwA4-tcWCE6JNCVTo7NEi9/exec";
 
 const form = document.getElementById("toast-form");
 const toast = document.getElementById("toast");
