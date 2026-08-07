@@ -5,50 +5,57 @@ const form = document.getElementById("toast-form");
 const toast = document.getElementById("toast");
 const submitBtn = document.getElementById("submit-btn");
 
-// ----------------------
-// Отправка формы в Google Таблицу
-// ----------------------
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-    const name = document.getElementById("guest-name").value.trim();
-    const relation = document.getElementById("guest-relation").value.trim();
-    const wish = document.getElementById("guest-wish").value.trim();
+  const name = document.getElementById("guest-name").value.trim();
+  const relation = document.getElementById("guest-relation").value.trim();
+  const wish = document.getElementById("guest-wish").value.trim();
 
-    if (!name || !relation || !wish) return;
+  if (!name || !relation || !wish) return;
 
-    // Блокируем кнопку на время отправки
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Отправка...";
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Отправка...";
 
-    try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-            method: "POST",
-            redirect: "follow",
-            headers: {
-                "Content-Type": "text/plain;charset=utf-8"
-            },
-            body: JSON.stringify({
-                name: name,
-                relation: relation,
-                wish: wish
-            })
-        });
+  // Создаем динамическую скрытую форму для отправки без CORS
+  const iframeName = "hidden_iframe_" + Date.now();
+  const iframe = document.createElement("iframe");
+  iframe.name = iframeName;
+  iframe.style.display = "none";
+  document.body.appendChild(iframe);
 
-        // Показываем плашку «Спасибо за поздравление»
-        if (toast) {
-            toast.style.display = "block";
-            setTimeout(() => {
-                toast.style.display = "none";
-            }, 4000);
-        }
+  const hiddenForm = document.createElement("form");
+  hiddenForm.method = "POST";
+  hiddenForm.action = GOOGLE_SCRIPT_URL;
+  hiddenForm.target = iframeName;
 
-        form.reset();
-    } catch (err) {
-        console.error("Ошибка при отправке в Google Таблицу:", err);
-        alert("Произошла ошибка при отправке. Попробуйте еще раз.");
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Отправить поздравление";
+  // Добавляем поля
+  const data = { name, relation, wish };
+  for (const key in data) {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = key;
+    input.value = data[key];
+    hiddenForm.appendChild(input);
+  }
+
+  document.body.appendChild(hiddenForm);
+  hiddenForm.submit();
+
+  // Показываем сообщение об успехе через 1 секунду
+  setTimeout(() => {
+    if (toast) {
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 4000);
     }
+    form.reset();
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Отправить поздравление";
+
+    // Удаляем временные элементы
+    document.body.removeChild(hiddenForm);
+    document.body.removeChild(iframe);
+  }, 1000);
 });
