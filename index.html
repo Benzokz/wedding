@@ -290,6 +290,7 @@ position:absolute;
 left:50%;
 
 top:0;
+
 bottom:0;
 
 width:8px;
@@ -338,26 +339,6 @@ color:#ff4d4d;
 color:#66b2ff;
 }
 
-.wall{
-margin-top:60px;
-border-radius:30px;
-padding:30px;
-}
-
-.wall-title{
-font-family:'Cormorant Garamond',serif;
-font-size:36px;
-margin-bottom:20px;
-text-align:center;
-}
-
-#wishes-wall{
-display:flex;
-flex-direction:column;
-gap:15px;
-max-height:600px;
-overflow-y:auto;
-}
 /* ================= БИТВА ================= */
 
 .battle-section{
@@ -627,7 +608,7 @@ box-shadow:
 <div class="hero-content">
 
 <div class="hero-subtitle">
-Интерактивная книга пожеланий
+
 </div>
 
 <h1 class="hero-title">
@@ -637,9 +618,7 @@ box-shadow:
 <div class="hero-divider"></div>
 
 <p class="hero-text">
-Дорогие гости, оставьте своё поздравление,
-поддержите сторону жениха или невесты
-и наблюдайте за живой битвой в реальном времени.
+Біздің тойымыз ұзақ тосттарсыз, еркін форматта өтеді. Ақ тілегіңіз бен ыстық ықыласыңызды осы жерге жазып қалдыра аласыз!
 </p>
 
 </div>
@@ -652,33 +631,33 @@ box-shadow:
 <section class="glass form-card">
 
 <h2 class="section-title">
-Оставьте своё поздравление
+Ізгі тілектеріңізді жазып кетіңіз
 </h2>
 
 <form id="toast-form">
 
 <div style="margin-bottom:20px;">
 
-<label>Ваше имя</label>
+<label>Аты-жөніңіз</label>
 
 <input
 id="guest-name"
 class="input"
 type="text"
-placeholder="Например: Марат Ибраев"
+placeholder="Мысалы: Марат Ибраев"
 required>
 
 </div>
 
 <div style="margin-bottom:20px;">
 
-<label>Кем приходитесь?</label>
+<label>Тілегіңіз</label>
 
 <input
 id="guest-relation"
 class="input"
 type="text"
-placeholder="Например: Друг Арлана"
+placeholder="Мысалы: Арланнын досы"
 required>
 
 <small style="color:#999;">
@@ -728,7 +707,7 @@ type="submit"
 
 >
 
-Отправить поздравление
+Құттықтау сөздерін жолдау
 
 </button>
 
@@ -736,58 +715,7 @@ type="submit"
 
 </section>
 
-
-
-
-
-<!-- ================= БИТВА ================= -->
-
-
-
-
-
-
-<!-- ================= СТЕНА ПОЖЕЛАНИЙ ================= -->
-
-<section
-
-class="glass wall"
-
->
-
-<h2
-
-class="wall-title"
-
->
-
-Поздравления гостей
-
-</h2>
-
-<div
-
-id="wishes-wall"
-
->
-
-<div
-
-style="text-align:center;color:#777;padding:50px;"
-
->
-
-Пока поздравлений нет
-
-</div>
-
-</div>
-
-</section>
-
-
-
-
+</main>
 
 <!-- ================= УВЕДОМЛЕНИЕ ================= -->
 
